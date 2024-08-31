@@ -11,3 +11,9 @@ LaTeX classes I use for maths posts
 
 > [!WARNING]  
 > You need to use XeLaTeX to work with the classes. Compiling with LaTeX will throw errors.
+
+## Usage
+
+See nasic example in the example folder.
+
+The logo on the title page is optional and must be activated with "logo" option. You must have your logo in images/logo.png. 

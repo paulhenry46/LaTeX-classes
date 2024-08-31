@@ -1,0 +1,151 @@
+% !TeX spellcheck = en_US
+\documentclass[french, logo]{yLectureNote}
+
+\title{Analyse}
+\subtitle{subtitle}
+\author{Paulhenry Saux}
+\date{\today}
+\yLanguage{Français}
+
+\professor{M. Professor}
+
+\usepackage{graphicx}%----pour mettre des images
+\usepackage[utf8]{inputenc}%---encodage
+\usepackage{geometry}%---pour modifier les tailles et mettre a4paper
+%\usepackage{awesomebox}%---pour les boites d'exercices, de pbq et de croquis ---d\'esactiv\'e pour les TP de PC
+\usepackage{tikz}%---pour dessiner + d\'ependance de chemfig
+\usepackage{tkz-tab}
+\usepackage{chemfig}%---pour dessiner formules chimiques
+\usepackage{chemformula}%---pour les formules chimiques en \'equation : \ch{...}.
+\usepackage{tabularx}%---pour dimensionner automatiquement les tableaux avec variable X
+\usepackage{awesomebox}%---Pour les boites info, danger et autres
+\usepackage{menukeys}%---Pour dessiner les touches de Calculatrice
+\usepackage{fancyhdr}%---pour les en-t\^ete personnalis\'ees
+\usepackage{blindtext}%---pour les liens
+\usepackage{hyperref}%---pour les liens (\`a mettre en dernier)
+\usepackage{caption}%---pour la francisation de la l\'egende table vers Tableau
+\usepackage{pifont}
+\usepackage{array}%---pour les tableaux
+\usepackage{lipsum}
+\usepackage{yFlatTable}
+\newcommand{\Lim}[1]{\lim\limits_{\substack{#1}}\:}
+\renewcommand{\vec}{\overrightarrow}
+\begin{document}
+\titleOne
+
+	\yTableOfContent
+
+\setcounter{chapter}{17}
+	\chapter{Inégalité de Bienaymé}
+
+
+	\printMarginPartialToc
+
+\section{Inégalité de Bienaymé}
+\begin{theorem}[Définition]
+\[P(|X-E(X)|\geq a) \leq \frac{V}{a^2}\]
+\end{theorem}
+
+\subsection{Utilisation}
+À partir de la loi
+\begin{enumerate}
+ \item On calcule et on pose $y = \frac{V}{a^2}$
+ \item Un majorant de $P(|X-E(X)|\geq a)$ est donc $y$ : Donc la probabilité que $X$ s'éloigne de plus de $a$ de l'espérance est inférieure ou égale à $y$
+ \item Mais $|X-E(X)| < a \iff E(x)-a \leq X \leq E(x)+a$
+ \item On peut aussi dire que la probabilité que X soit compris entre $E(x)-a$ et $E(x)+a$ est inférieure à $1-y$
+\end{enumerate}
+Trouver un minorant de la probabilité que $c<X<d$.
+\begin{enumerate}
+ \item $c<X<d \iff c-E(X)<X-E(X)<d-E(X)$
+ \item On pose $e = d-E(X)$
+ \item On a donc : $c<X<d \iff X-E(X)<e$
+ \item Donc : $P(c<X<d) = P(X-E(X)<e) = 1-P(X-E(X)\geq e)$
+ \item D'après l'inégalité de Tchebychev, $P(X-E(X)\geq e) \leq \frac{V}{e^2}$
+ \item Donc $-P(X-E(X)\geq e) \geq -\frac{V}{e^2}$
+ \item Donc $1-P(X-E(X)\geq e) \geq 1-\frac{V}{e^2}$
+ \item Donc $P(c<X<d) \geq 1-\frac{V}{e^2}$
+\end{enumerate}
+\infoInfo{Exemple}{Soit $L$ la variable aléatoire donnant le débit du Lot relevé sur un barrage à un instant $t$. On donne $E(L) = 350$ et $V(L) = 28000$.
+
+On cherche une majoration de $P(|L-350|\geq200)$.
+
+Donc :
+\begin{enumerate}
+ \item On calcule et on pose $y = \frac{V(L)}{200^2} = 0.7$
+ \item Un majorant de $P(|L-350|\geq 200)$ est donc $0.7$ : Donc la probabilité que le débit du Lot soit écartée de plus ou moins 200 m3 par seconde de son cours moyen est inférieure ou égale à 0.7
+ \item Mais $|L-350| < 200 \iff 350-200=150 \leq X \leq 350+200 = 550$
+ \item On peut aussi dire que la probabilité que $L$ soit compris entre $150$ et $550$ est inférieure à $1-y-0.7 = 0.3$
+\end{enumerate}
+
+On veut maintenant une minoration de la probabilité que le débit du Lot soit compris entre $50$ et $650$ m/s
+
+Donc :
+
+\begin{enumerate}
+ \item $50<L<350 \iff 50-350=-300<L-E(X)<650-350=300$
+ \item On pose $e = 300$
+ \item On a donc : $50<L<350 \iff L-350<e$
+ \item Donc : $P(50<L<350) = P(L-350<e) = 1-P(L-350\geq e)$
+ \item D'après l'inégalité de Tchebychev, $P(L-350\geq e) \leq \frac{V(L)}{e^2} = \frac{28000}{300^2} = \frac{14}{45}$
+ \item Donc $-P(L-350\geq e) \geq -\frac{14}{45}$
+ \item Donc $1-P(L-350\geq e) \geq 1-\frac{14}{45}$
+ \item Donc $P(50<L<650) \geq \frac{31}{45}$
+\end{enumerate}
+
+Donc la probabilité que le débit soit compris entre $50$ et $650$ m/s est d'au moins $\frac{31}{45}$.}
+\section{Inégalité de concentration}
+\begin{theorem}[Définition]
+Sur un échantillon de taille $n$ et de moyenne $M_n$ :
+\[P(|M_n-E(X)|\geq a) \leq \frac{V}{na^2}\]
+\end{theorem}
+\subsection{Utilisation}
+Déterminer une taille d'échantillon en fonction de la précision et du risque choisis
+
+On considère un échantillon de taille $n$ de variable aléatoire $X$ suivant une loi binomiale de probabilité de succès $p$ avec $M_n$ la moyenne de cet échantillon. On cherche combien d'éléments il faut pour que la fréquence de succès soit comprise entre $a$ et $b$ avec une probabilité supérieure à $c$
+\begin{enumerate}
+ \item On converti l'intervalle donné \begin{enumerate}
+                                       \item $a<M_n<b \iff a-E(X)<M_n-E(X)<b-E(X)$
+                                       \item $\rightarrow |M_n-E(X)|<b-E(X)$
+                                      \end{enumerate}
+  \item On cherche donc $n$ tel que $P(|M_n-E(X)|<b-E(X)) \geq c$
+  \item On pose $e = b-E(X))$
+  \item On transforme l'expression :
+  \begin{enumerate}
+     \item $\iff 1-P(|M_n-E(X)|\geq e \geq c$
+  \item $\iff -P(|M_n-E(X)|\geq e \geq c-1$
+  \item $\iff P(|M_n-E(X)|\geq e \leq -(c-1)$
+  \end{enumerate}
+\item On applique l'inégalité : $ P(|M_n-E(X)|\geq e \leq \frac{V(X)}{ne^2}$
+\item On cherche donc $n$ tel que $\frac{V(X)}{ne^2} \leq -(c-1) = 1-c$
+\item Finalement, $n \geq \frac{V(X)}{(1-c)\times e^2}$
+
+\end{enumerate}
+Le risque correspond à $1-c$ et la précision à $e$.
+\infoInfo{Exemple}{Pour une certaine variété d'arbre, la probabilité d'obtenir une fleur blanche est de 0.25. On cherche combien il faut de fleur pour que la fréquence de fleur blanche soit comprise entre 0.2 et 0.3 avec une probabilité d'au moins 0.99
+
+On admet que $V(X) = 0.1875$ et $E(X) = 0.25$. En effet, si X suit une loi binomiale, sa variance vaut $p(1-p)$ et son espérance vaut $p$.
+
+Donc : \begin{enumerate}
+ \item On converti l'intervalle donné \begin{enumerate}
+                                       \item $0.2<M_n<0.3 \iff 0.2-0.25<M_n-0.25<0.3-0.25$
+                                       \item $\rightarrow |M_n-0.25|<0.05$
+                                      \end{enumerate}
+  \item On cherche donc $n$ tel que $P(|M_n-0.25|<0.05) \geq 0.99$
+  \item On pose $e = 0.05)$
+  \item On transforme l'expression :
+  \begin{enumerate}
+     \item $\iff 1-P(|M_n-0.25|\geq e \geq 0.99$
+  \item $\iff -P(|M_n-0.25|\geq e \geq 0.99-1$
+  \item $\iff P(|M_n-0.25|\geq e \leq -(-0.01)$
+  \end{enumerate}
+\item On applique l'inégalité : $ P(|M_n-0.25|\geq e \leq \frac{0.1875}{n0.05^2}$
+\item On cherche donc $n$ tel que $\frac{0.1875}{n0.05^2} \leq 0.01$
+\item Finalement, $n \geq \frac{0.1875}{(0.01)\times 0.05^2}$
+
+\end{enumerate}}
+\section{Loi des grands nombres}
+\begin{theorem}[Définition]
+\[\Lim{+\infty} P(|M_n-E(X)|\geq a) = 0\]
+\end{theorem}
+En conséquence, la moyenne empirique $M_n$ converge vers$ E(X)$ quand $n$ tend vers $\infty$.
+\end{document}

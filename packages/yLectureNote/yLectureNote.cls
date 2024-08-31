@@ -9,7 +9,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Copyright Yves Zumbach 2017
+% Copyright Yves Zumbach 2017 and Paulhenry Saux 2024 
 %-------------------------------------------------------------------------------
 
 % This work is distributed under the LPPL
@@ -25,9 +25,9 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 % 
-% The Current Maintainer of this work is Yves Zumbach
+% The Current Maintainer of this work is Paulhenry Saux
 
-% Based upon the uiothesis and report class
+% Based upon the uiothesis and report class from Yves Zumbach
 
 
 \ProvidesClass{yLectureNote}[2016/09/19 A class for lecture notes with a modern look combined with a marginpar]
@@ -64,6 +64,11 @@
 	\PassOptionsToClass{\CurrentOption}{report}
 }
 
+\newif\iflogo
+
+
+\DeclareOption{logo}
+    {\logotrue}
 
 \ProcessOptions\relax
 
@@ -513,7 +518,10 @@
 		\node [
 			text width=\titlepageRubberWidth,
 			anchor=north east
-		] at (titlepageRubberRightBottom) {%\includegraphics[width=\linewidth]{images/epflLogo.jpg}
+		] at (titlepageRubberRightBottom) {
+			\iflogo
+				\includegraphics[width=\linewidth]{images/logo.png}
+			\fi
 		};
 	\end{tikzpicture}
 	\newpage
