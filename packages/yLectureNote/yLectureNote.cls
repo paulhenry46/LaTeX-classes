@@ -30,7 +30,7 @@
 % Based upon the uiothesis and report class from Yves Zumbach
 
 
-\ProvidesClass{yLectureNote}[2016/09/19 A class for lecture notes with a modern look combined with a marginpar]
+\ProvidesClass{yLectureNote}[A class for lecture notes with a modern look combined with a marginpar]
 \NeedsTeXFormat{LaTeX2e}
 
 
@@ -91,7 +91,6 @@
 
 \RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
-% Those custom packages can all be found and downloaded at http://github.com/HarveySheppard/yLaTeX
 \RequirePackage{yMarginDesign}
 \RequirePackage{infoBulle}
 \RequirePackage{marginInfoBulle}
@@ -253,7 +252,7 @@
 \newfontfamily{\subsectionNumbers}{Oswald LightItalic}
 \newfontfamily{\abril}{Abril Fatface}
 
-\providefontfamily{\FA}{Font Awesome 6 Pro}%Font Awesome 6 Pro
+\providefontfamily{\FA}{Font Awesome 6 Pro}%Font Awesome 6 Pro. Needed in order to have all the icons. A copy of this font was made in fonts folder.
 \providefontfamily{\FASolid}{Font Awesome 6 Pro-Solid}%Font Awesome 6 Pro-Solid
 
 
