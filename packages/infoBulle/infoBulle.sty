@@ -9,7 +9,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Copyright Harvey Sheppard 2021
+% Copyright Harvey Sheppard 2021, Paulhenry Saux 2024
 %-------------------------------------------------------------------------------
 
 % This work is distributed under the LPPL
@@ -24,11 +24,11 @@
 % version 2005/12/01 or later.
 %
 % This work has the LPPL maintenance status `maintained'.
-% 
-% The Current Maintainer of this work is Yves Zumbach
+%
+% The Current Maintainer of this work is Paulhenry Saux
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{infoBulle}[2017/02/17 The infoBulle package typeset flat informational boxes, by Yves ZUMBACH]
+\ProvidesPackage{infoBulle}[2017/02/17 The infoBulle package typeset flat informational boxes, by Yves ZUMBACH and Paulhenry SAUX]
 
 
 
@@ -136,6 +136,11 @@
 \definecolor{tipsColor}{RGB}{142, 68, 173}
 \definecolor{calculatorColor}{RGB}{12, 43, 129}
 \definecolor{mathematicalColor}{RGB}{230, 126, 34}
+\ifDark
+\definecolor{myproofColor}{RGB}{255, 255, 255}
+\else
+\definecolor{myproofColor}{RGB}{0, 0, 0}
+\fi
 \colorlet{codeColor}{Grey}
 
 
@@ -155,6 +160,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % infoBulle basic configuration
+\ifDark
+\mdfdefinestyle{infoBulle}
+{
+	skipabove=\baselineskip,
+	skipbelow=\baselineskip,
+	innertopmargin=4mm,
+	innerbottommargin=\baselineskip,
+	innerleftmargin=4mm,
+	innerrightmargin=4mm,
+	leftmargin=0mm,
+	rightmargin=0mm,
+	rightline=false,
+	topline=false,
+	bottomline=false,
+	linewidth=1mm,
+	backgroundcolor=lightGrey,
+	frametitlebelowskip=0mm,
+	frametitleaboveskip=4mm,
+	backgroundcolor=lightGrey,
+	fontcolor=white,
+}
+\else
 \mdfdefinestyle{infoBulle}
 {
 	skipabove=\baselineskip,
@@ -173,6 +200,7 @@
 	frametitlebelowskip=0mm,
 	frametitleaboveskip=4mm,
 }
+\fi
 \newmdenv[
 	style=infoBulle,
 ]{infoBulle}
@@ -190,6 +218,9 @@
 \setlength{\yIconHorizontalOffset}{.73cm}
 % General Command
 \DeclareDocumentCommand{\@titleContent}{m m m}{%
+\ifDark
+		\color{white}
+		\fi
 	\ifinfoBulleMarginIcons
 		\llap{#2\hspace*{\yIconHorizontalOffset}}%
 		\mbox{}%
@@ -211,6 +242,9 @@
 % Command for titles n two part (one in bold, the other normal)
 % icon color, icon, title part one, title part two
 \DeclareDocumentCommand{\@titleContentTwoPart}{m m m m}{%
+\ifDark
+		\color{white}
+		\fi
 	\@titleContent{#1}{#2}{#3\IfValueTF{#4}{~:\ {\normalfont#4}}{}}%
 }
 % Command for math title
@@ -218,7 +252,9 @@
 \DeclareDocumentCommand{\@titleContentMath}{m m m}{%
 	\@titleContentTwoPart{mathematicalColor}{\mathematicalIcon}{#1 \arabic{\infoBulle@mathCounterReset}.#2}{#3}%
 }
-
+\DeclareDocumentCommand{\@titleContentMyProof}{m m m}{%
+	\@titleContentTwoPart{myproofColor}{\myproofIcon}{#1 \arabic{\infoBulle@mathCounterReset}.#2}{#3}%
+}
 % infoBulle skeleton
 % The little mess with lengths allow to keep the same parindent and parskip inside the infoBulle (this is a little bug from mdframed)
 \newlength{\tempparindent}
@@ -227,6 +263,9 @@
 	\setlength{\tempparindent}{\parindent}
 	\setlength{\tempparskip}{\parskip}
 	\begin{infoBulle}[linecolor=#1, frametitle=\@titleContent{#1}{#2}{#3}]%
+		\ifDark
+		\color{white}
+		\fi
 		\setlength{\parindent}{\tempparindent}%
 		\setlength{\parskip}{\tempparskip}%
 		\pgfkeys{/infoBulle/text alignment}%
@@ -235,6 +274,9 @@
 }
 \DeclareDocumentCommand{\@infoBulleSkeleton}{m m m +m}{
 	\begin{@infoBulleSkeletonEnv}{#1}{#2}{#3}
+	\ifDark
+		\color{white}
+		\fi
 		#4
 	\end{@infoBulleSkeletonEnv}
 }
@@ -249,7 +291,7 @@
 % infoInfo
 %-------------------------------------------------------------------------------
 \newcommand{\infoIcon}{%
-	\infoBulleAbstractIcon{informationColor}{\FASolid\symbol{"F129}}
+	\infoBulleAbstractIcon{informationColor}{\ifDark\color{white}\fi\FASolid\symbol{"F129}}
 }
 \DeclareDocumentCommand{\infoInfo}{m +m}{\@infoBulleSkeleton{informationColor}{\infoIcon}{#1}{#2}}
 \NewDocumentEnvironment{InfoInfo}{m}
@@ -260,7 +302,7 @@
 % warningInfoexclamation
 %-------------------------------------------------------------------------------
 \newcommand{\warningIcon}{%
-	\infoBulleAbstractIcon{warningColor}{\FASolid\symbol{"F12A}}
+	\infoBulleAbstractIcon{warningColor}{\ifDark\color{white}\fi\FASolid\symbol{"F12A}}
 }
 \DeclareDocumentCommand{\warningInfo}{m +m}{\@infoBulleSkeleton{warningColor}{\warningIcon}{#1}{#2}}
 \NewDocumentEnvironment{WarningInfo}{m}
@@ -271,7 +313,7 @@
 % criticalInfo
 %-------------------------------------------------------------------------------
 \newcommand{\criticalIcon}{%
-	\infoBulleAbstractIcon{criticalColor}{\FASolid\symbol{"F00D}}
+	\infoBulleAbstractIcon{criticalColor}{\ifDark\color{white}\fi\FASolid\symbol{"F00D}}
 }
 \DeclareDocumentCommand{\criticalInfo}{m +m}{\@infoBulleSkeleton{criticalColor}{\criticalIcon}{#1}{#2}}
 \NewDocumentEnvironment{CriticalInfo}{m}
@@ -282,7 +324,7 @@
 % checkInfo
 %-------------------------------------------------------------------------------
 \newcommand{\checkIcon}{%
-	\infoBulleAbstractIcon{checkColor}{\FASolid\symbol{"F00C}}
+	\infoBulleAbstractIcon{checkColor}{\ifDark\color{white}\fi\FASolid\symbol{"F00C}}
 }
 \DeclareDocumentCommand{\checkInfo}{m +m}{\@infoBulleSkeleton{checkColor}{\checkIcon}{#1}{#2}}
 \NewDocumentEnvironment{CheckInfo}{m}
@@ -293,7 +335,7 @@
 % questionInfo
 %-------------------------------------------------------------------------------
 \newcommand{\questionIcon}{%
-	\infoBulleAbstractIcon{questionColor}{\FASolid\symbol{"F128}}
+	\infoBulleAbstractIcon{questionColor}{\ifDark\color{white}\fi\FASolid\symbol{"F128}}
 }
 \DeclareDocumentCommand{\questionInfo}{m +m}{\@infoBulleSkeleton{questionColor}{\questionIcon}{#1}{#2}}
 \NewDocumentEnvironment{QuestionInfo}{m}
@@ -304,7 +346,7 @@
 % tipsInfo
 %-------------------------------------------------------------------------------
 \newcommand{\tipsIcon}{%
-	\infoBulleAbstractIcon{tipsColor}{\FA\symbol{"F0EB}}
+	\infoBulleAbstractIcon{tipsColor}{\ifDark\color{white}\fi\FA\symbol{"F0EB}}
 }
 \DeclareDocumentCommand{\tipsInfo}{m +m}{\@infoBulleSkeleton{tipsColor}{\tipsIcon}{#1}{#2}}
 \NewDocumentEnvironment{TipsInfo}{m}
@@ -315,7 +357,7 @@
 % CalculatorInfo
 %-------------------------------------------------------------------------------
 \newcommand{\calculatorIcon}{%
-	\infoBulleAbstractIcon{calculatorColor}{\FASolid\symbol{"F1EC}}
+	\infoBulleAbstractIcon{calculatorColor}{\ifDark\color{white}\fi\FASolid\symbol{"F1EC}}
 }
 \DeclareDocumentCommand{\calculatorInfo}{m +m}{\@infoBulleSkeleton{calculatorColor}{\CalculatorIcon}{#1}{#2}}
 \NewDocumentEnvironment{CalculatorInfo}{m}
@@ -325,7 +367,7 @@
 % codeInfo
 %-------------------------------------------------------------------------------
 \newcommand{\codeIcon}{%
-	\infoBulleAbstractIcon{Grey}{\FASolid\symbol{"F121}}
+	\infoBulleAbstractIcon{Grey}{\ifDark\color{white}\fi\FASolid\symbol{"F121}}
 }
 \lstnewenvironment{CodeInfoLst}[1][Python]
 {
@@ -378,7 +420,27 @@
 % Mathematical Icon
 %-------------------------------------------------------------------------------
 \newcommand{\mathematicalIcon}{%
-	\infoBulleAbstractIcon{mathematicalColor}{\FASolid\symbol{"F67E}}%
+	\infoBulleAbstractIcon{mathematicalColor}{\ifDark\color{white}\fi\FASolid\symbol{"F67E}}%
+}
+\newcommand{\myproofIcon}{%
+	\infoBulleAbstractIcon{myproofColor}{\FASolid\symbol{"F67E}}%
+}
+
+% Proof commands
+%-------------------------------------------------------------------------------
+\NewTranslation{english}{myproof}{Proof}
+\NewTranslation{french}{myproof}{Preuve}
+\NewTranslation{german}{myproof}{Lehrsatz}
+\newcounter{myproof}[\infoBulle@mathCounterReset]
+\NewDocumentEnvironment{myproof}{o}{%
+	\stepcounter{myproof}%
+	\begin{mdframed}[%
+		style=infoBulle,
+		linecolor=myproofColor,
+		frametitle=\@titleContentMyProof{\GetTranslation{myproof}}{\themyproof}{#1}
+		]\relax%
+	}{%
+\end{mdframed}%
 }
 
 % Theorem commands

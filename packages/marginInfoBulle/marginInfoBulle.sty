@@ -9,7 +9,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Copyright Harvey Sheppard 2021
+% Copyright Harvey Sheppard 2021, Paulhenry Saux 2024
 %-------------------------------------------------------------------------------
 
 % This work is distributed under the LPPL
@@ -25,13 +25,15 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 % 
-% The Current Maintainer of this work is Yves Zumbach
+% The Current Maintainer of this work is Paulhenry Saux
 
 \NeedsTeXFormat{LaTeX2e}
 
 \ProvidesPackage{marginInfoBulle}[2017/02/18 An add-on for the infoBulle package that defines commands for infoBulles in the margin of a document]
 
-
+% \ifDark
+% \color{white}
+% \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %		Required Packages
@@ -46,9 +48,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %		marginInfoBulle Style
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\mdfdefinestyle{marginInfoBulle}
-{
+\ifDark
+\mdfdefinestyle{marginInfoBulle}{
+	skipabove=0mm,
+	skipbelow=0mm,
+	innertopmargin=1mm,
+	innerbottommargin=1mm,
+	innerleftmargin=3mm,
+	innerrightmargin=0mm,
+	leftmargin=0mm,
+	rightmargin=0mm,
+	rightline=false,
+	topline=false,
+	bottomline=false,
+	linewidth=1mm,
+	frametitlebelowskip=1mm,
+	frametitleaboveskip=1mm,
+	backgroundcolor=lightGrey,
+	fontcolor=white,
+}
+\else
+\mdfdefinestyle{marginInfoBulle}{
 	skipabove=0mm,
 	skipbelow=0mm,
 	innertopmargin=1mm,
@@ -64,6 +84,8 @@
 	frametitlebelowskip=1mm,
 	frametitleaboveskip=1mm,
 }
+\fi
+
 
 
 
@@ -80,6 +102,9 @@
 	}
 	\marginElement{%
 		\begin{mdframed}[style=marginInfoBulle, linecolor=#3, frametitle={%
+		\ifDark
+		\color{white}
+\fi
 				\parbox{\linewidth}{%
 					\mbox{}%
 					\parbox[t]{.5cm}{\leavevmode\color{#3}#2}%

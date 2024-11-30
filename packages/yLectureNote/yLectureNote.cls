@@ -27,10 +27,8 @@
 % 
 % The Current Maintainer of this work is Paulhenry Saux
 
-% Based upon the uiothesis and report class from Yves Zumbach
 
-
-\ProvidesClass{yLectureNote}[A class for lecture notes with a modern look combined with a marginpar]
+\ProvidesClass{yLectureNote}[2016/09/19 A class for lecture notes with a modern look combined with a marginpar]
 \NeedsTeXFormat{LaTeX2e}
 
 
@@ -38,6 +36,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %		Options
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Option to enable Dark Mode of the document
+\newif\ifDark
+\Darkfalse
+\DeclareOption{dark}{
+	\Darktrue
+}
+
+
 
 \newif\ifFrenchBullet
 \FrenchBulletfalse
@@ -266,14 +272,24 @@
 \newcommand{\lightMainColor}{\colorlet{lightMainColor}{mainColor!80}\color{lightMainColor}}
 \definecolor{secondColor}{RGB}{255, 193, 7}
 
-\definecolor{sectionNumbersColor}{gray}{.8}
-\colorlet{subsectionNumbersColor}{sectionNumbersColor}
 
-\definecolor{lightGrey}{gray}{0.94}
+
+%\definecolor{lightGrey}{gray}{0.94}
 \definecolor{middleGrey}{gray}{.75}
 \definecolor{darkGrey}{gray}{.55}
 
-\colorlet{light-gray}{lightGrey} %redefines infoBulle background light-grey to match yLectureNote lightGrey
+\ifDark
+\definecolor{lightGrey}{RGB}{21, 25, 30}
+\definecolor{light-gray}{RGB}{21, 25, 30}
+\definecolor{sectionNumbersColor}{RGB}{29, 35, 42}
+\else
+\definecolor{lightGrey}{gray}{0.94}
+\colorlet{light-gray}{lightGrey}
+\definecolor{sectionNumbersColor}{gray}{.8}
+\fi
+
+\colorlet{subsectionNumbersColor}{sectionNumbersColor}
+ %redefines infoBulle background light-grey to match yLectureNote lightGrey
 
 % Theoreme and blocs colors
 \definecolor{mathematicalColor}{RGB}{230, 126, 34}
@@ -397,7 +413,11 @@
 %			}{}%
 		}{}%
 	}
+	\ifDark
+	\fancyfoot[R]{\thepage/{\color{white}{\hypersetup{linkcolor=White}\pageref{LastPage}}}}
+	\else
 	\fancyfoot[R]{\thepage/{\hypersetup{linkcolor=Black}\pageref{LastPage}}}
+	\fi
 	\fancyhfoffset[R]{\marginparsep + \marginparwidth}
 	\renewcommand{\headrulewidth}{0pt}
 	\renewcommand{\footrulewidth}{0pt}
@@ -518,9 +538,10 @@
 			text width=\titlepageRubberWidth,
 			anchor=north east
 		] at (titlepageRubberRightBottom) {
-			\iflogo
-				\includegraphics[width=\linewidth]{images/logo.png}
-			\fi
+		\iflogo
+			\includegraphics[width=\linewidth]{images/logo.png}
+		\fi
+		%\includegraphics[width=\linewidth]{images/epflLogo.jpg}
 		};
 	\end{tikzpicture}
 	\newpage
@@ -902,7 +923,7 @@
 	topline=false,
 	bottomline=false,
 	linewidth=1mm,
-	backgroundcolor=light-gray,
+	backgroundcolor=lightGrey,
 }
 
 
@@ -979,7 +1000,7 @@
 % Align all margin elements to the left
 \yMarginDesignConfiguration{alignment/.code = {\FlushLeft}, emph color=mainColor}
 
-
-
-
-
+\ifDark
+\pagecolor{black}
+\color{white}
+\fi
