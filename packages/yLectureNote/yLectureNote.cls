@@ -281,7 +281,7 @@
 \ifDark
 \definecolor{lightGrey}{RGB}{21, 25, 30}
 \definecolor{light-gray}{RGB}{21, 25, 30}
-\definecolor{sectionNumbersColor}{RGB}{29, 35, 42}
+\definecolor{sectionNumbersColor}{RGB}{39, 45, 52}
 \else
 \definecolor{lightGrey}{gray}{0.94}
 \colorlet{light-gray}{lightGrey}

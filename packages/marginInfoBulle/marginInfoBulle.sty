@@ -42,7 +42,7 @@
 \RequirePackage{infoBulle}
 \RequirePackage{yMarginDesign}
 \RequirePackage{translations}
-
+\usetikzlibrary{tikzmark}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -116,12 +116,63 @@
 	}%
 }
 
+% Arguments: 1)color  2)content
+\DeclareDocumentCommand{\marginExplanationAbstract}{m m}{%
+	\marginElement{%
+		\begin{mdframed}[style=marginInfoBulle, linecolor=#1]%
+			#2%
+		\end{mdframed}%
+	}%
+}
 
+\DeclareDocumentCommand{\explainAbstract}{m m m m m}{
+\tikz[remember picture,overlay,baseline=0pt] \draw[<-, > = stealth, very thick, #5] (0.5em,#4em)
+to[bend #2=25,] ([shift={(-2ex,#3)}]pic cs:#1);
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %		Instantiating Special Commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\DeclareDocumentCommand{\explain}{m m m m}{
+\explainAbstract{#1}{#2}{#3}{#4}{criticalColor}
+}
+
+\DeclareDocumentCommand{\explainW}{m m m m}{
+\explainAbstract{#1}{#2}{#3}{#4}{warningColor}
+}
+
+\DeclareDocumentCommand{\explainT}{m m m m}{
+\explainAbstract{#1}{#2}{#3}{#4}{tipsColor}
+}
+
+\DeclareDocumentCommand{\explainQ}{m m m m}{
+\explainAbstract{#1}{#2}{#3}{#4}{questionColor}
+}
+
+\DeclareDocumentCommand{\explainC}{m m m m}{
+\explainAbstract{#1}{#2}{#3}{#4}{checkColor}
+}
+
+\DeclareDocumentCommand{\explanation}{m m}{%
+	{\marginExplanationAbstract{criticalColor}{\tikzmark{#1}#2}}%
+}
+
+\DeclareDocumentCommand{\explanationW}{m m}{%
+	{\marginExplanationAbstract{warningColor}{\tikzmark{#1}#2}}%
+}
+
+\DeclareDocumentCommand{\explanationT}{m m}{%
+	{\marginExplanationAbstract{tipsColor}{\tikzmark{#1}#2}}%
+}
+
+\DeclareDocumentCommand{\explanationC}{m m}{%
+	{\marginExplanationAbstract{checkColor}{\tikzmark{#1}#2}}%
+}
+
+\DeclareDocumentCommand{\explanationQ}{m m}{%
+	{\marginExplanationAbstract{questionColor}{\tikzmark{#1}#2}}%
+}
 % marginCritical
 %-------------------------------------------------------------------------------
 \NewTranslation{english}{difficulty}{Difficulty}
