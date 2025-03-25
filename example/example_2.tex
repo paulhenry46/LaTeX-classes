@@ -1,0 +1,134 @@
+% !TeX spellcheck = en_US
+\documentclass[french]{yLectureNote}
+
+\title{Mathématiques - Analyse 2}
+\subtitle{Analyse}
+\author{Paulhenry Saux}
+\date{\today}
+\yLanguage{Français}
+
+\professor{REDACTED}
+
+\usepackage{graphicx}%----pour mettre des images
+\usepackage[utf8]{inputenc}%---encodage
+\usepackage{geometry}%---pour modifier les tailles et mettre a4paper
+%\usepackage{awesomebox}%---pour les boites d'exercices, de pbq et de croquis ---d\'esactiv\'e pour les TP de PC
+\usepackage{tikz}%---pour deiffner + d\'ependance de chemfig
+\usepackage{tkz-tab}
+\usepackage{chemfig}%---pour deiffner formules chimiques
+\usepackage{chemformula}%---pour les formules chimiques en \'equation : \ch{...}
+\usepackage{tabularx}%---pour dimensionner automatiquement les tableaux avec variable X
+\usepackage{awesomebox}%---Pour les boites info, danger et autres
+\usepackage{menukeys}%---Pour deiffner les touches de Calculatrice
+\usepackage{fancyhdr}%---pour les en-t\^ete personnalis\'ees
+\usepackage{blindtext}%---pour les liens
+\usepackage{hyperref}%---pour les liens (\`a mettre en dernier)
+\usepackage{caption}%---pour la francisation de la l\'egende table vers Tableau
+\usepackage{pifont}
+\usepackage{array}%---pour les tableaux
+\usepackage{lipsum}
+\usepackage{yFlatTable}
+\usepackage{multicol}
+\newcommand{\Lim}[1]{\lim\limits_{\substack{#1}}\:}
+\renewcommand{\vec}{\overrightarrow}
+\begin{document}
+
+
+	\chapter{DL et équivalence }
+\begin{definition}[Suite équivalente]
+Soient $u$ et $v$ 2 suites équivalentes. La suite $u$ est éuivalente à $v_p$, noté $u\sim v$ si $u_p = v_p + o(v_p)$ ou encore $\exists \varepsilon \to 0 \text{ quand } n\to+\infty, \forall p\geq N, u_p = v_p + \varepsilon_pv_p = (1+\varepsilon_p)v_p$
+\end{definition}
+\section{Méthode}
+On cherche une suite équivalente simple à une suite d'expression plus complexe. On veut donc pouvoir écrire cette suite compliquée $u_p$ comme $(1+\varepsilon_p)v_p$, c'est-à-dire la suite équivalente multipliée par quelque chose qui tend vers 1 et ainsi obtenir la suite équivalente $v_p$.
+\subsection{Somme}
+On met en facteur le terme qui atteint la limite ``le plus vite''.
+
+Exemple :
+\explanation{ex_1}{On met en facteur le terme qui atteint la limite le plus vite. Ici, on pourrait déjà déjà dire que $n^3$ est bien équivalent car le contenu de la parenthèse tend vers 1.}
+
+\explanation{exx2}{Les termes qui tendent vers $0$ sont négligeables devant le dénominateur, ici $n^3$. On les réécrit dans l'expression originale avec la notation de Landeau.}
+
+\explanation{ex_3}{On trouve la définition d'une suite équivalante, écrite avec les notations de Landeau.}
+\begin{flalign*}
+a_n &= n^3-n^2+\ln(n)-7\\
+&= n^3(1-\frac{n^2}{n^3} + \frac{\ln(n)}{n^3} - \frac{7}{n^3})\explain{ex_1}{right}{0}{0.5}{}\\
+&= n^3- o(n^3) + o(n^3) - o(n^3)\explain{exx2}{right}{0}{0.5}{}\\
+&=n^3 + o(n^3)\explain{ex_3}{right}{0}{0.5}{}\\
+&\sim n^3
+\end{flalign*}
+
+On n'est pas obligé d'utiliser la notation de Landeau. On peut sauter les lignes 3 et 4.
+\subsection{Produit/Quotient}
+Comme on peut multipliser les équivalents, on peut, dans un produit séparer les termes/le quotient puis multiplier entre eux les équivalents trouvés.
+
+Exemple avec $a_n = \frac{e^n-n}{\sqrt{n+\sin(n)}}$.
+\explanation{ex_4}{Pour trouver cet équivalent, il aurait été faux de dire que $n+\sin(n)\sim n$ donc $\sqrt{n+\sin(n)} \sim \sqrt{n}$. En effet, bien que cela soit tentant et que cela produise dans cet exemple un résultat juste, on ne peut pas appliquer des fonctions aux équivalents. }
+\begin{flalign*}
+e^n-n &= e^n(1-\frac{n}{e^n})\\
+&\sim e^n\\
+&\\
+\sqrt{n+\sin(n)} &= \sqrt{n}\sqrt{1+\frac{\sin(n)}{n}}\\
+&\sim \sqrt{n}\explain{ex_4}{right}{0}{0.5}{}\\
+a_n &\sim e^n\times \frac{1}{\sqrt{n}} = \frac{e^n}{\sqrt{n}}
+\end{flalign*}
+\explanation{ex_7}{Comme on a puissance non constant, on va appliquer la fonction exponentielle et sa réciproque à la suite pour transformer la puissance en un produit avec les propriétés de $\ln$. }
+\explanation{ex_8}{On remplace le logarithme par son développement limité après avoir vérifié que la fonction $\frac{-1}{n}$ tendait bien vers 0. Dans le cas contraire, on aurait pas pu. }
+\explanation{ex_9}{On développe le $n^2$ sur la parenthèse. Cela s'applique aussi au $o(\frac{1}{n^2})$. }
+
+\explanation{ex_10}{$o(1)$ tend toujours vers 0 et $\exp(0) = 1$, donc on a bien notre suite équivalente multipliée par quelque chose tendant vers 1. }
+Exemple avec $a_n = (1-\frac{1}{n})^{n^2}$.
+
+\begin{flalign*}
+a_n &= \exp(n^2\ln(1-\frac{1}{n}))\explain{ex_7}{right}{0}{0.5}{}\\
+&= \exp(n^2(\frac{-1}{n} - \frac{(\frac{-1}{n})^2}{2} + o(\frac{1}{n^2})))\explain{ex_8}{right}{0}{0.5}{}\\
+&= \exp(-n - \frac{1}{2} + o(1))\explain{ex_9}{right}{0}{0.5}{}\\
+&= \exp(-n - \frac{1}{2})\times \exp(o(1))\explain{ex_10}{right}{0}{0.5}{}\\
+\end{flalign*}
+\subsection{Composées}
+Dans certains cas, on ne peut pas contourner la présence d'une fonction, on voudrait donc pouvoir composer notre équivalence, mais c'est interdit. On va donc utiliser les développements limités pour transformer notre fonction en une somme de polyn\^ome que l'on peut étudier.
+
+Exemple avec $a_n = \sqrt{1+\frac{(-1)^n}{n}}-1$
+\explanation{ex_5}{On écrit le développment limité de $\sqrt{1+u}$ à l'ordre 1}
+
+\explanation{ex_6}{Ici, $u = \frac{(-1)^n}{n}$ et tend bien vers 0. On peut donc appliquer le DL à notre expression. Si $\frac{(-1)^n}{n}$ ne tendait pas vers 0, on n'aurait pas pu le faire.}
+\begin{flalign*}
+\sqrt{1+u} &= 1+\frac{1}{2}u + o(u)\explain{ex_5}{right}{0}{0.5}{}\\
+\sqrt{1+\frac{(-1)^n}{n}} &= 1 + \frac{(-1)^n}{2n} + o(\frac{(-1)^n}{n})\explain{ex_6}{right}{0}{0.5}{}\\
+&\\
+a_n&= 1 + \frac{(-1)^n}{2n} -1 + o(\frac{(-1)^n}{n})\\
+&\sim \frac{(-1)^n}{2n}
+\end{flalign*}
+\subsection{Remarques}
+\begin{itemize}
+ \item
+Quand la fonction converge vers une limite finie, l'équivalent est simplement cette limite.
+\item Quand l'équivalent tend vers l'infini, il ne faut pas supprimer un potentiel facteur multiplicateur, m\^eme s'il ne change rien à la limite !
+\end{itemize}
+
+\subsection{Développements limités usuels}
+\criticalInfo{
+Ce sont les DL des fonctions au voisinage de 0 !
+}
+
+\warningInfo{Développements limités à conna\^itre}{
+\begin{eqnarray*}
+e^x&=&1+x+\frac{x^2}2+\dots+\frac{x^n}{n!}+o(x^n)\\
+\cos x&=&1-\frac{x^2}{2!}+\dots+\frac{(-1)^n x^{2n}}{(2n)!}+o(x^{2n+1})\\
+\sin x&=&x-\frac{x^3}{3!}+\dots+\frac{(-1)^n x^{2n+1}}{(2n+1)!}+o(x^{2n+2})\\
+\cosh x&=&1+\frac{x^2}{2!}+\dots+\frac{x^{2n}}{(2n)!}+o(x^{2n+1})\\
+\sinh x&=&x+\frac{x^3}{3!}+\dots+\frac{ x^{2n+1}}{(2n+1)!}+o(x^{2n+2})\\
+\frac{1}{1-x}&=&1+x+x^2+\dots+x^n+o(x^n)\\
+\frac{1}{1+x}&=&1-x+x^2+\dots+(-1)^nx^n+o(x^n)\\
+\ln(1+x)&=&x-\frac{x^2}2+\dots+\frac{(-1)^{n+1}}{n}x^n+o(x^n)\\
+(1+x)^\alpha&=&1+\alpha x+\frac{\alpha(\alpha-1)}2x^2+\dots+\frac{\alpha(\alpha-1)\cdots (\alpha-n+1)}{n!}x^n+o(x^n)\\
+\end{eqnarray*}}
+\subsection{Remarques}
+\begin{itemize}
+ \item Quand une fonction est paire, son DL ne comporte que des puissances de x paires.
+\item Le DL d’une fonction impaire ne comporte que des puissances de x impaires.
+\item Quand elle n’est ni paire ni impaire, elle comporte à priori toutes les puissances de x (sauf exception).
+\item Le DL de ch(x) est la partie paire de $e^x$.
+\item Le DL de sh(x) est la partie impaire de $e^x$.
+\end{itemize}
+
+\end{document}

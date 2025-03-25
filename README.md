@@ -14,6 +14,10 @@ LaTeX classes I use for maths posts
 
 ## Usage
 
-See nasic example in the example folder.
+See basic example in the example folder.
 
-The logo on the title page is optional and must be activated with "logo" option. You must have your logo in images/logo.png. 
+The logo on the title page is optional and must be activated with "logo" option. You must place your logo in images/logo.png. 
+
+## Bonus
+
+In the `utils` folder you'll find the .cwl file you need to import into your favorite editor to benefit from the autocomplete feature linked to these packages. If you're using Kile on linux, place it in the `/home/username/.local/share/kile/complete/tex/` folder or import it (settings > Kile settings > Complete > Add).
