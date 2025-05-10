@@ -6,4 +6,4 @@ Actions=ReplaceLatexTags
 [Desktop Action ReplaceLatexTags]
 Name=Replace old maths tags by new math tags
 Icon=kedit
-Exec=/home/paulhenrys/Nextcloud/scripts/latex1.sh %f
+Exec=/your path/script.sh %f

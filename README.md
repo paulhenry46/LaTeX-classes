@@ -27,4 +27,5 @@ In the `utils` folder, you'll find a script to replace $$...$$ tags by \[..\] ta
  - make it executable : `chmod +x replace_math_tags.sh`
  - download replace_tex_math.desktop and move it to `~/.local/share/kio/servicemenus`
  - make it executable : `chmod +x replace_tex_math.desktop`
+ - edit replace_tex_math.desktop to use the path of script. Don't forget to keep the %f on the line.
  - restart dolphin
