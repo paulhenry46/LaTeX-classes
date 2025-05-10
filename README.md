@@ -10,7 +10,7 @@ LaTeX classes I use for maths posts
 3. Enjoy
 
 > [!WARNING]  
-> You need to use XeLaTeX to work with the classes. Compiling with LaTeX will throw errors.
+> You need to use XeLaTeX to work with the classes. Compiling with pdf-LaTeX will throw errors.
 
 ## Usage
 
@@ -20,4 +20,11 @@ The logo on the title page is optional and must be activated with "logo" option.
 
 ## Bonus
 
-In the `utils` folder you'll find the .cwl file you need to import into your favorite editor to benefit from the autocomplete feature linked to these packages. If you're using Kile on linux, place it in the `/home/username/.local/share/kile/complete/tex/` folder or import it (settings > Kile settings > Complete > Add).
+In the `utils` folder you'll find the .cwl file you need to import into your favorite editor to benefit from the autocomplete feature linked to these packages. If you're using Kile on linux, place it in the `~/.local/share/kile/complete/tex/` folder or import it (settings > Kile settings > Complete > Add).
+
+In the `utils` folder, you'll find a script to replace $$...$$ tags by \[..\] tags and $...$ by \(\). If you're using Dolphin on Linux, you can create an service menu. To do that :
+ - download replace_math_tags.sh and move it where you want.
+ - make it executable : `chmod +x replace_math_tags.sh`
+ - download replace_tex_math.desktop and move it to `~/.local/share/kio/servicemenus`
+ - make it executable : `chmod +x replace_tex_math.desktop`
+ - restart dolphin
