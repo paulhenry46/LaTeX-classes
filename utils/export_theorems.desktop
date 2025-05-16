@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Service
+MimeType=text/x-tex;
+Actions=ExportTheorems
+
+[Desktop Action ExportTheorems]
+Name=Export propositions, theorems and definitions to a export.csv file
+Icon=download
+Exec=/your path to extract_tex_theorems.sh %f
