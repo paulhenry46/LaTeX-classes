@@ -8,6 +8,15 @@
 \checkInfo{title}{content}
 \infoInfo{title}{content}
 
+criticalColor
+questionColor
+informationColor
+checkColor
+warningColor
+tipsColor
+calculatorColor
+mathematicalColor
+
 \begin{myproof}
 \end{myproof}
 
